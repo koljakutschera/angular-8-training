@@ -20,7 +20,7 @@ export class BookStoreService {
         "Mit Angular setzen Sie auf ein modernes..."
       ),
       new Book(
-        "1234",
+        "456",
         "Angular 2",
         ["Johannes Hoppe", "Danny Koppenhagen"],
         new Date(2017, 3, 1),
@@ -33,5 +33,8 @@ export class BookStoreService {
   }
   getAll() {
     return this.books;
+  }
+  getSingle(isbn: string) {
+    return this.books.find(book => book.isbn === isbn);
   }
 }
