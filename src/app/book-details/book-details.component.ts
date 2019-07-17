@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Book } from "../shared/book";
 import { BookStoreService } from "../shared/book-store.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+
+import { BookFactory } from "../shared/book-factory";
 
 @Component({
   selector: "bm-book-details",
@@ -9,13 +11,26 @@ import { ActivatedRoute } from "@angular/router";
   styles: []
 })
 export class BookDetailsComponent implements OnInit {
-  book: Book;
-  constructor(private bs: BookStoreService, private route: ActivatedRoute) {}
+  book: Book = BookFactory.empty();
+  constructor(
+    private bs: BookStoreService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
   ngOnInit() {
     const params = this.route.snapshot.params;
-    this.book = this.bs.getSingle(params.isbn);
+    this.bs.getSingle(params.isbn).subscribe(res => (this.book = res));
   }
   getRating(num: number) {
     return new Array(num);
+  }
+  removeBook() {
+    if (confirm("Buch wirklick löschen?")) {
+      this.bs.remove(this.book.isbn).subscribe(res =>
+        this.router.navigate(["../"], {
+          relativeTo: this.route
+        })
+      );
+    }
   }
 }
