@@ -15,7 +15,6 @@ export class AppComponent {
     this.detailsOn = false;
   }
   showDetails(book: Book) {
-    console.log(book);
     this.book = book;
     this.listOn = false;
     this.detailsOn = true;

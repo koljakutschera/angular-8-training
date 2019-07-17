@@ -46,7 +46,6 @@ export class BookListComponent implements OnInit {
     ];
   }
   showDetails(book: Book) {
-    console.log(book);
     this.showDetailsEvent.emit(book);
   }
 }
