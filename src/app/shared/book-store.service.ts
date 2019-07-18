@@ -90,4 +90,11 @@ export class BookStoreService {
       })
       .pipe(catchError(this.handleError));
   }
+  getAllSearch(searchTerm: string): Observable<Array<Book>> {
+    return this.http.get(`${this.api}/books/search/${searchTerm}`).pipe(
+      retry(3),
+      map((res: []) => res.map(rawBook => BookFactory.fromObject(rawBook))),
+      catchError(this.handleError)
+    );
+  }
 }
