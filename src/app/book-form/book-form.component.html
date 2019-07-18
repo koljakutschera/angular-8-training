@@ -1,80 +1,89 @@
 <h1>Buchformular</h1>
-<form class="ui large form" #myForm="ngForm" (ngSubmit)="submitForm()">
+
+<form class="ui large form" [formGroup]="myForm" (ngSubmit)="submitForm()">
   <div class="field">
     <label>Buchtitel</label>
-    <input name="title" [(ngModel)]="book.title" required />
+    <input formControlName="title" />
     <div *ngIf="errors.title" class="ui negative message">
       {{ errors.title }}
     </div>
   </div>
   <div class="field">
     <label>Untertitel</label>
-    <input name="subtitle" [(ngModel)]="book.subtitle" required />
-    <div *ngIf="errors.subtitle" class="ui negative message">
-      {{ errors.subtitle }}
-    </div>
+    <input formControlName="subtitle" />
   </div>
-  <div class="field">
+  <div class="field" [class.disabled]="isUpdatingBook">
     <label>ISBN-Nummer</label>
-    <input
-      name="isbn"
-      [(ngModel)]="book.isbn"
-      required
-      minlength="10"
-      maxlength="13"
-    />
+    <input formControlName="isbn" />
     <div *ngIf="errors.isbn" class="ui negative message">
       {{ errors.isbn }}
     </div>
   </div>
   <div class="field">
     <label>Erscheinungsdatum</label>
-    <input
-      name="published"
-      type="date"
-      useValueAsDate
-      [(ngModel)]="book.published"
-      required
-    />
+    <input type="date" useValueAsDate formControlName="published" />
+
     <div *ngIf="errors.published" class="ui negative message">
       {{ errors.published }}
     </div>
   </div>
+
   <div class="field">
-    <label>Autor</label>
-    <input name="authors" [(ngModel)]="book.authors[0]" required />
+    <label>Autoren</label>
+
+    <div class="fields" formArrayName="authors">
+      <div
+        class="fifteen wide field"
+        *ngFor="let control of authors.controls; index as i"
+      >
+        <input [formControlName]="i" placeholder="Autor {{ i + 1 }}" />
+      </div>
+
+      <div class="one wide field">
+        <button
+          (click)="addAuthorControl()"
+          class="ui large button"
+          type="button"
+        >
+          +
+        </button>
+      </div>
+    </div>
     <div *ngIf="errors.authors" class="ui negative message">
       {{ errors.authors }}
     </div>
   </div>
   <div class="field">
     <label>Beschreibung</label>
-    <textarea
-      name="description"
-      [(ngModel)]="book.description"
-      required
-      rows="3"
-    ></textarea>
-    <div *ngIf="errors.description" class="ui negative message">
-      {{ errors.description }}
-    </div>
+    <textarea formControlName="description" rows="3"></textarea>
   </div>
   <div class="field">
-    <label>Bild</label>
-    <div class="two fields" ngModelGroup="thumbnail">
-      <div class="field">
-        <input
-          name="url"
-          [(ngModel)]="book.thumbnails[0].url"
-          placeholder="http://example.org/img.jpg"
-        />
-      </div>
-      <div class="field">
-        <input
-          name="title"
-          [(ngModel)]="book.thumbnails[0].title"
-          placeholder="Titel"
-        />
+    <label>Bilder</label>
+    <div formArrayName="thumbnails">
+      <div
+        class="fields"
+        *ngFor="let control of thumbnails.controls; index as i; last as l"
+        [formGroupName]="i"
+      >
+        <div class="nine wide field">
+          <input
+            formControlName="url"
+            placeholder="http://bild{{ i + 1 }}_Url"
+          />
+        </div>
+        <div class="six wide field">
+          <input formControlName="title" placeholder="Bild {{ i + 1 }} Titel" />
+        </div>
+
+        <div class="one wide field" *ngIf="l">
+          <button
+            (click)="addThumbnailControl()"
+            class="ui large button"
+            type="button"
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   </div>
