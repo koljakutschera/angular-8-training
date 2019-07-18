@@ -1,6 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
+
+import { DateValueAccessorModule } from "angular-date-value-accessor";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -9,7 +12,8 @@ import { BookListItemComponent } from "./book-list-item/book-list-item.component
 import { BookDetailsComponent } from "./book-details/book-details.component";
 import { BookStoreService } from "./shared/book-store.service";
 import { HomeComponent } from "./home/home.component";
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from "./search/search.component";
+import { BookFormComponent } from "./book-form/book-form.component";
 
 @NgModule({
   declarations: [
@@ -18,9 +22,16 @@ import { SearchComponent } from './search/search.component';
     BookListItemComponent,
     BookDetailsComponent,
     HomeComponent,
-    SearchComponent
+    SearchComponent,
+    BookFormComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    DateValueAccessorModule
+  ],
   providers: [BookStoreService],
   bootstrap: [AppComponent]
 })

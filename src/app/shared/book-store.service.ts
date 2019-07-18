@@ -19,30 +19,7 @@ export class BookStoreService {
   books: Book[];
   constructor(private http: HttpClient) {
     this.headers.append("Content-Type", "application/json");
-    /*
-    this.books = [
-      new Book(
-        "123",
-        "Angular 1",
-        ["Johannes Hoppe", "Danny Koppenhagen"],
-        new Date(2017, 3, 1),
-        "Grundlagen und fortgeschrittene Techniken",
-        5,
-        [new Thumbnail("/assets/angularjs-buch.jpg", "Buchcover")],
-        "Mit Angular setzen Sie auf ein modernes..."
-      ),
-      new Book(
-        "456",
-        "Angular 2",
-        ["Johannes Hoppe", "Danny Koppenhagen"],
-        new Date(2017, 3, 1),
-        "Grundlagen und fortgeschrittene Techniken",
-        4,
-        [new Thumbnail("/assets/angular-buch.jpg", "Buchcover")],
-        "Mit Angular setzen Sie auf ein modernes..."
-      )
-    ];
-    */
+    this.headers.append("Accept", "application/json");
   }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -71,14 +48,14 @@ export class BookStoreService {
   }
   create(book: Book): Observable<any> {
     return this.http
-      .post(`${this.api}/book`, JSON.stringify(book), {
+      .post(`${this.api}/book`, book, {
         headers: this.headers
       })
       .pipe(catchError(this.handleError));
   }
   update(book: Book): Observable<any> {
     return this.http
-      .put(`${this.api}/book/${book.isbn}`, JSON.stringify(book), {
+      .put(`${this.api}/book/${book.isbn}`, book, {
         headers: this.headers
       })
       .pipe(catchError(this.handleError));
