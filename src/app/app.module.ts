@@ -1,7 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, LOCALE_ID } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
+import { registerLocaleData } from "@angular/common";
+import de from "@angular/common/locales/de";
 
 import { DateValueAccessorModule } from "angular-date-value-accessor";
 
@@ -14,6 +16,9 @@ import { BookStoreService } from "./shared/book-store.service";
 import { HomeComponent } from "./home/home.component";
 import { SearchComponent } from "./search/search.component";
 import { BookFormComponent } from "./book-form/book-form.component";
+import { IsbnPipe } from './shared/isbn.pipe';
+
+registerLocaleData(de);
 
 @NgModule({
   declarations: [
@@ -23,7 +28,8 @@ import { BookFormComponent } from "./book-form/book-form.component";
     BookDetailsComponent,
     HomeComponent,
     SearchComponent,
-    BookFormComponent
+    BookFormComponent,
+    IsbnPipe
   ],
   imports: [
     BrowserModule,
@@ -32,7 +38,7 @@ import { BookFormComponent } from "./book-form/book-form.component";
     ReactiveFormsModule,
     DateValueAccessorModule
   ],
-  providers: [BookStoreService],
+  providers: [BookStoreService, { provide: LOCALE_ID, useValue: "de-at" }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
