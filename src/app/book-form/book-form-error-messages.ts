@@ -24,5 +24,16 @@ export const BookFormErrorMessages = [
     "required",
     "Es muss ein Erscheinungsdatum angegeben werden"
   ),
-  new ErrorMessage("authors", "required", "Es muss ein Autor angegeben werden")
+  new ErrorMessage("authors", "required", "Es muss ein Autor angegeben werden"),
+  new ErrorMessage(
+    "isbn",
+    "isbnFormat",
+    "Die ISBN muss aus 10 oder 13 Zeichen bestehen"
+  ),
+  new ErrorMessage("isbn", "isbnExists", "Die ISBN existiert bereits"),
+  new ErrorMessage(
+    "authors",
+    "atLeastOneAuthor",
+    "Es muss ein Autor angegeben werden"
+  )
 ];

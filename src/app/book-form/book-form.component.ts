@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
-import { Book, Thumbnail } from "../shared/book";
+import { Book } from "../shared/book";
 import { BookFactory } from "../shared/book-factory";
 import { BookStoreService } from "../shared/book-store.service";
 import { BookFormErrorMessages } from "./book-form-error-messages";
+import { BookValidators } from "../shared/book.validators";
 
 @Component({
   selector: "bm-book-form",
@@ -46,12 +47,10 @@ export class BookFormComponent implements OnInit {
       subtitle: this.book.subtitle,
       isbn: [
         this.book.isbn,
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(13)
-        ]
+        [Validators.required, BookValidators.isbnFormat],
+        this.isUpdatingBook ? null : BookValidators.isbnExists(this.bs)
       ],
+
       description: this.book.description,
       authors: this.authors,
       thumbnails: this.thumbnails,
@@ -63,7 +62,10 @@ export class BookFormComponent implements OnInit {
   }
 
   buildAuthorsArray() {
-    this.authors = this.fb.array(this.book.authors, Validators.required);
+    this.authors = this.fb.array(
+      this.book.authors,
+      BookValidators.atLeastOneAuthor
+    );
   }
 
   buildThumbnailsArray() {
