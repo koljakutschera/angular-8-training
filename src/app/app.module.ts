@@ -17,6 +17,8 @@ import { HomeComponent } from "./home/home.component";
 import { SearchComponent } from "./search/search.component";
 import { BookFormComponent } from "./book-form/book-form.component";
 import { IsbnPipe } from './shared/isbn.pipe';
+import { ZoomDirective } from './shared/zoom.directive';
+import { DelayDirective } from './shared/delay.directive';
 
 registerLocaleData(de);
 
@@ -29,7 +31,9 @@ registerLocaleData(de);
     HomeComponent,
     SearchComponent,
     BookFormComponent,
-    IsbnPipe
+    IsbnPipe,
+    ZoomDirective,
+    DelayDirective
   ],
   imports: [
     BrowserModule,
