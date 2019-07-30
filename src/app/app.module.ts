@@ -11,20 +11,11 @@ import { BookStoreService } from "./shared/book-store.service";
 import { HomeComponent } from "./home/home.component";
 import { SearchComponent } from "./search/search.component";
 
-import { BookModule } from "./book/book.module";
-import { AdminModule } from "./admin/admin.module";
-
 registerLocaleData(de);
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, SearchComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BookModule,
-    AdminModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [BookStoreService, { provide: LOCALE_ID, useValue: "de-at" }],
   bootstrap: [AppComponent]
 })
