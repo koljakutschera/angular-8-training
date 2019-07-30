@@ -18,8 +18,13 @@ export class BookDetailsComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit() {
+    /*
+     * Without resolver ...
+     *
     const params = this.route.snapshot.params;
     this.bs.getSingle(params.isbn).subscribe(res => (this.book = res));
+    */
+    this.book = this.route.snapshot.data.book;
   }
   getRating(num: number) {
     return new Array(num);

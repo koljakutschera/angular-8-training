@@ -28,6 +28,9 @@ export class BookFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    /*
+     * Without resolver...
+     *
     const isbn = this.route.snapshot.params.isbn;
     if (isbn) {
       this.isUpdatingBook = true;
@@ -35,6 +38,12 @@ export class BookFormComponent implements OnInit {
         this.book = book;
         this.initBook();
       });
+    }
+    */
+    const data = this.route.snapshot.data;
+    if (data.book) {
+      this.isUpdatingBook = true;
+      this.book = data.book;
     }
     this.initBook();
   }
