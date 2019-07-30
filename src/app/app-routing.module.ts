@@ -3,6 +3,8 @@ import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 
 import { HomeComponent } from "./home/home.component";
 
+import { CanNavigateToAdminGuard } from "./can-navigate-to-admin.guard";
+
 export const routes: Routes = [
   {
     path: "",
@@ -19,7 +21,8 @@ export const routes: Routes = [
   },
   {
     path: "admin",
-    loadChildren: "src/app/admin/admin.module#AdminModule"
+    loadChildren: "src/app/admin/admin.module#AdminModule",
+    canActivate: [CanNavigateToAdminGuard]
   }
 ];
 
@@ -30,6 +33,6 @@ export const routes: Routes = [
     })
   ],
   exports: [RouterModule],
-  providers: []
+  providers: [CanNavigateToAdminGuard]
 })
 export class AppRoutingModule {}
