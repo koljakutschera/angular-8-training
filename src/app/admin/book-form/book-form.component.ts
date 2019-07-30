@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
-import { Book } from "../shared/book";
-import { BookFactory } from "../shared/book-factory";
-import { BookStoreService } from "../shared/book-store.service";
+import { Book } from "../../shared/book";
+import { BookFactory } from "../../shared/book-factory";
+import { BookStoreService } from "../../shared/book-store.service";
 import { BookFormErrorMessages } from "./book-form-error-messages";
 import { BookValidators } from "../shared/book.validators";
 
