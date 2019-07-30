@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "extract-i18n": "ng xi18n --i18n-locale de --output-path src/locale",
+    "build-production-en": "ng build --configuration=production-en",
+    "serve-production-en": "ng serve --configuration=production-en"
   },
   "private": true,
   "dependencies": {
